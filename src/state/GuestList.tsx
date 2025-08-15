@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const GuestList: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [name, setName] = useState("");
   const [guests, setGuests] = useState<string[]>([]);
 
@@ -20,8 +21,13 @@ const GuestList: React.FC = () => {
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     console.log(event);
-    return 
+    return;
   };
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+    inputRef.current.focus();
+  }, []);
 
   return (
     <div>
@@ -31,7 +37,11 @@ const GuestList: React.FC = () => {
           <li key={guest}>{guest}</li>
         ))}
       </ul>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <input
+        ref={inputRef}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <button onClick={addGuest}>Add Guest</button>
       <br />
       <hr />
