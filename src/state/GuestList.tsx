@@ -3,7 +3,7 @@ import { useState } from "react";
 const GuestList: React.FC = () => {
   const [name, setName] = useState("");
   const [guests, setGuests] = useState<string[]>([]);
-  
+
   const [searchName, setSearchName] = useState("");
   const [foundUser, setFoundUser] = useState<string | undefined>();
 
@@ -16,6 +16,11 @@ const GuestList: React.FC = () => {
     const user = guests.find((guest) => guest === searchName);
 
     setFoundUser(user);
+  };
+
+  const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+    console.log(event);
+    return 
   };
 
   return (
@@ -31,10 +36,14 @@ const GuestList: React.FC = () => {
       <br />
       <hr />
       <h2>Find Guests</h2>
-      <input value={searchName} onChange={(e) => setSearchName(e.target.value)}></input>
+      <input
+        value={searchName}
+        onChange={(e) => setSearchName(e.target.value)}
+      ></input>
       <button onClick={onSearchUser}>Find User</button>
-      <div>
-        {foundUser}
+      <div>{foundUser}</div>
+      <div draggable onDrag={onDragStart}>
+        Drag me!
       </div>
     </div>
   );

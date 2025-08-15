@@ -1,6 +1,6 @@
 import { Child } from './Child';
 
-const Parent = () => {
+const Parent: React.FC = () => {
   return <Child color="red" />;
 };
 
